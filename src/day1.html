@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 往 页面上输出内容
+      function hello() {
+        debugger;
+        const div1 = document.createElement("div");
+        document.body.appendChild(div1);
+        div1.innerText = `hello world again`;
+      }
+
+      // 往 控制台输出内容
+      function longtimeTask() {
+        debugger;
+        // 长时间任务
+        const t0 = performance.now(); // 計時開始
+        let count = 1000;
+        for (let i = 0; i < count; i++) {
+          console.error("hello world");
+        }
+        const t1 = performance.now(); // 計時結束
+        console.log(
+          ` ${count} console.log("Hello World"); 花费了 ${t1 - t0} 毫秒.`
+        );
+      }
+
+      // 执行一个长时间的任务
+      setTimeout(() => {
+        longtimeTask();
+      }, 0);
+
+      // 插队成功!
+      (async function () {
+        hello();
+      })();
+    </script>
+  </body>
+</html>
