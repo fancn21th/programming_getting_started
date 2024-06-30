@@ -31,8 +31,8 @@
     <script>
       function drawBackground() {
         const container = document.getElementById("gridContainer");
-        const rows = 30;
-        const cols = 30;
+        const rows = 10;
+        const cols = 10;
 
         for (let i = 0; i < rows; i++) {
           const row = document.createElement("div");
@@ -40,6 +40,7 @@
           for (let j = 0; j < cols; j++) {
             const col = document.createElement("div");
             col.classList.add("col");
+            col.id = `${i}-${j}`; // 这里给每一个格子设置一个id，方便后续操作
             const content = document.createTextNode(`${i}: ${j}`);
             col.appendChild(content);
             row.appendChild(col);
@@ -48,7 +49,27 @@
         }
       }
 
+      function drawObject(x, y) {
+        const object = document.getElementById(`${x}-${y}`);
+        object.style.backgroundColor = "red";
+        console.log(`你已经走到${x}-${y}了`);
+      }
+
+      function moveObjectFromA2B(x1, y1, x2, y2) {
+        // 程序的执行顺序从这里开始
+        let count = y1;
+        const interval = setInterval(() => {
+          drawObject(x1, count--);
+          if (count < 0) {
+            clearInterval(interval);
+            console.log("你已经走到尽头了");
+          }
+        }, 1000);
+      }
+
       drawBackground();
+
+      moveObjectFromA2B(5, 9, 5, 0);
     </script>
   </body>
 </html>
