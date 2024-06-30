@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      .grid-container {
+      }
+      .row {
+        display: flex;
+      }
+      .col {
+        width: 50px;
+        height: 50px;
+        border: 1px solid #000;
+        text-align: center;
+        line-height: 50px;
+        color: #eee;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grid-container" id="gridContainer"></div>
+
+    <script>
+      function drawBackground() {
+        const container = document.getElementById("gridContainer");
+        const rows = 30;
+        const cols = 30;
+
+        for (let i = 0; i < rows; i++) {
+          const row = document.createElement("div");
+          row.classList.add("row");
+          for (let j = 0; j < cols; j++) {
+            const col = document.createElement("div");
+            col.classList.add("col");
+            const content = document.createTextNode(`${i}: ${j}`);
+            col.appendChild(content);
+            row.appendChild(col);
+          }
+          container.appendChild(row);
+        }
+      }
+
+      drawBackground();
+    </script>
+  </body>
+</html>
