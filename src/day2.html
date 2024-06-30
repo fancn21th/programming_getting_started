@@ -21,7 +21,7 @@
         border: 1px solid #000;
         text-align: center;
         line-height: 50px;
-        color: #eee;
+        /* color: #eee; */
       }
     </style>
   </head>
@@ -29,6 +29,7 @@
     <div class="grid-container" id="gridContainer"></div>
 
     <script>
+      // 绘制背景
       function drawBackground() {
         const container = document.getElementById("gridContainer");
         const rows = 10;
@@ -49,17 +50,33 @@
         }
       }
 
+      // 绘制物体在 x, y 坐标上
       function drawObject(x, y) {
         const object = document.getElementById(`${x}-${y}`);
         object.style.backgroundColor = "red";
         console.log(`你已经走到${x}-${y}了`);
       }
 
+      // 擦除物体在 x, y 坐标上
+      function undoDrawObject(x, y) {
+        const object = document.getElementById(`${x}-${y}`);
+        // 防御编程
+        if (!object) return;
+        object.style.backgroundColor = "";
+        console.log(`你已经离开了${x}-${y}`);
+      }
+
+      // 移动物体从 A 点到 B 点
       function moveObjectFromA2B(x1, y1, x2, y2) {
         // 程序的执行顺序从这里开始
         let count = y1;
+        // 第三步 (2.1 步骤), 绘制物体的每一次移动
         const interval = setInterval(() => {
+          // 第四步, 先清除上一次的绘制
+          undoDrawObject(x1, count + 1);
+          // 第五步, 绘制物体当前的位置
           drawObject(x1, count--);
+          // 避免出现负数
           if (count < 0) {
             clearInterval(interval);
             console.log("你已经走到尽头了");
@@ -67,9 +84,12 @@
         }, 1000);
       }
 
+      // 主程序从这里开始执行
+      // 第一步 绘制 背景
       drawBackground();
-
+      // 第二步 绘制物体的移动
       moveObjectFromA2B(5, 9, 5, 0);
+      moveObjectFromA2B(4, 9, 4, 0);
     </script>
   </body>
 </html>
